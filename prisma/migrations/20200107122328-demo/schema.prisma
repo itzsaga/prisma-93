@@ -1,0 +1,23 @@
+datasource db {
+  provider = "sqlite"
+  url = "***"
+  default  = true
+}
+
+generator photon {
+  provider = "photonjs"
+}
+
+model Entity {
+  id                     String              @id
+                                             @default(cuid())
+  name                   String
+  duration_unit_mappings DurationUnit[]      @relation(name: "DurationUnitMapping")
+}
+
+model DurationUnit {
+  id            String   @id
+                         @default(cuid())
+  duration_unit String
+  entity        Entity[] @relation(name: "DurationUnitMapping")
+}
